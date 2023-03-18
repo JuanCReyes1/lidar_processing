@@ -241,9 +241,10 @@ def multiple_classifications_to_las(classified_points,class_selections):
 input_las = load_laspy('Tile65_Original_Clean_Macro.las')
 
 
-#input_las = load_laspy("200-145324069_ground.las")
+
 #Obtain the classifications available for the dataset
 classifications = get_list_classifications(input_las=input_las)
+
 #Create a python dictionary containing the original dataset
 # as well as classifications in individual laspy objects.
 classifications_laspy =  get_classifications_laspy(input_las=input_las)
@@ -256,15 +257,16 @@ df = convert_laspy_pandas(input_las=input_las)
 #Inform user which class values are present 
 #Proceed by prompting user input to select classes to group into a final dataframe.
 class_selections = get_selected_classes(classifications = classifications,input_las=input_las)
+
 # Form a pandas dataframe from user-selected classifications
 combined_df = create_combined_classifications_dataframe(class_selections=class_selections,df=df)
 
 ##Create laspy points from the pandas dataframe of selected user classifications
 classified_points = create_laspy_from_dataframe(input_las=input_las,combined_df=combined_df)
 
-
+#create a las object for each classification set of points
 laspy_classifications_to_las(classifications_laspy=classifications_laspy)
-
+#export every single classification as its own .LAS data
 multiple_classifications_to_las(classified_points=classified_points,class_selections=class_selections)
 
 
