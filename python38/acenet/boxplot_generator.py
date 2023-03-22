@@ -33,4 +33,4 @@ for filename in os.listdir(input_dir):
             
             print(output_path)
         except:
-            print("no")
+            print("Could not process file: " + str(las_path))
