@@ -66,7 +66,7 @@ for filename in os.listdir(input_dir):
     if filename.endswith(".las"):
         try:
             #os.makedirs(new_dir_path+ )
-            las_path = os.path.join(input_dir, filename)
+            las_path = os.path.join(input_dir, str(filename))
             output_path = os.path.join(output_dir, filename)
 
             numbers = re.findall("\d+", filename)
@@ -74,6 +74,8 @@ for filename in os.listdir(input_dir):
             sub_dir = os.path.join(new_dir_path,words[0]+"_"+words[1]+"_"+numbers[0]+"-"+numbers[1])
             os.makedirs(sub_dir, exist_ok=True)
             print("Creating laspy object")
+            print(input_dir)
+            print(filename)
             print(las_path)
 
             input_las = load_laspy(las_location=las_path)
