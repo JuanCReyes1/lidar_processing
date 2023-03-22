@@ -24,12 +24,18 @@ def filter_point_cloud(las_path, output_path, quarter_size=1000):
 new_dir_path = './Cleaned_Data_Quarterlies'
 os.makedirs(new_dir_path, exist_ok=True)
 
-input_dir = ".\\"
+input_dir = "./"
 output_dir = new_dir_path
 
 for filename in os.listdir(input_dir):
     if filename.endswith(".las"):
-        las_path = os.path.join(input_dir, filename)
-        output_path = os.path.join(output_dir, filename)
-        filter_point_cloud(las_path, output_path)
-        print("File processed and cleaned: " + output_path)
+        try:
+            las_path = os.path.join(input_dir, filename)
+            output_path = os.path.join(output_dir, filename)
+            filter_point_cloud(las_path, output_path)
+            print("Input file: " + las_path )
+            print("File processed and cleaned and stored at : " + output_path)
+        except:
+            print("The file is corrupted: " + las_path)
+
+print("Finished processing all encountered .LAS files.")
