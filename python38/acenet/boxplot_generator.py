@@ -54,7 +54,7 @@ def export_boxplot(df,sub_dir,column = "X",by = "classification"):
     plot_file = os.path.join(sub_dir,'boxplot_{}.png'.format(str(column)))
     plt.savefig(plot_file, dpi=300, bbox_inches='tight')
 
-    
+
 
 new_dir_path = 'Classification_Distribution_Boxplots'
 os.makedirs(new_dir_path, exist_ok=True)
@@ -74,9 +74,10 @@ for filename in os.listdir(input_dir):
             sub_dir = os.path.join(new_dir_path,words[0]+"_"+words[1]+"_"+numbers[0]+"-"+numbers[1])
             os.makedirs(sub_dir, exist_ok=True)
             print("Creating laspy object")
+            print(las_path)
 
             input_las = load_laspy(las_location=las_path)
-
+            print("create a pandas object")
             #create a pandas object
             df = convert_laspy_pandas(input_las)
             print("created df")
