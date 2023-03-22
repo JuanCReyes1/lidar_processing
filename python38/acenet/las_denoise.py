@@ -31,7 +31,7 @@ for filename in os.listdir(input_dir):
     if filename.endswith(".las"):
         try:
             las_path = os.path.join(input_dir, filename)
-            output_path = os.path.join(output_dir, filename)
+            output_path = os.path.join(output_dir,"quartile_denoised_"+filename)
             filter_point_cloud(las_path, output_path)
             print("Input file: " + las_path )
             print("File processed and cleaned and stored at : " + output_path)
