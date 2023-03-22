@@ -20,12 +20,14 @@ for filename in os.listdir(input_dir):
             numbers = re.findall("\d+", filename)
             words = re.findall('[a-zA-Z]+', filename)
             sub_dir = os.path.join(new_dir_path,words[0]+"_"+words[1]+"_"+numbers[0]+"-"+numbers[1])
-            os.makedirs(sub_dir, exist_ok=False)
+            os.makedirs(sub_dir, exist_ok=True)
+            print("Creating laspy object")
 
             input_las = load_laspy(las_location=las_path)
 
             #create a pandas object
             df = convert_laspy_pandas(input_las)
+            print("created df")
             #export the boxplots
             export_boxplot(df=df,sub_dir=sub_dir, column="X",by="classification")
             export_boxplot(df=df,sub_dir=sub_dir, column="Y",by="classification")
