@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import re
 import os
 import laspy
+import numpy as np
 
 
 #used to load .las data into a laspy object.
@@ -53,6 +54,7 @@ def export_boxplot(df,sub_dir,column = "X",by = "classification"):
     #Create filename and save
     plot_file = os.path.join(sub_dir,'boxplot_{}.png'.format(str(column)))
     plt.savefig(plot_file, dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 
@@ -73,21 +75,15 @@ for filename in os.listdir(input_dir):
             words = re.findall('[a-zA-Z]+', filename)
             sub_dir = os.path.join(new_dir_path,words[0]+"_"+words[1]+"_"+numbers[0]+"-"+numbers[1])
             os.makedirs(sub_dir, exist_ok=True)
-            print("Creating laspy object")
-            print(input_dir)
-            print(filename)
-            print(las_path)
 
             input_las = load_laspy(las_location=las_path)
-            print("create a pandas object")
             #create a pandas object
             df = convert_laspy_pandas(input_las)
-            print("created df")
             #export the boxplots
+            print("Exporting boxplots for: " + str(sub_dir))
             export_boxplot(df=df,sub_dir=sub_dir, column="X",by="classification")
             export_boxplot(df=df,sub_dir=sub_dir, column="Y",by="classification")
             export_boxplot(df=df,sub_dir=sub_dir, column="Z",by="classification")
             
-            print(output_path)
         except:
             print("Could not process file: " + str(las_path))
